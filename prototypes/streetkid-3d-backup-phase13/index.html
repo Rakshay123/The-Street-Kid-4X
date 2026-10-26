@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Streetkid: Rule the Streets 3D</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- 3D WebGL Canvas Container -->
+    <div id="canvas-container"></div>
+
+    <!-- Standalone 3D Title Screen Modal -->
+    <div id="title-screen" class="game-modal">
+      <div class="modal-card title-card">
+        <h1>STREETKID: RULE THE STREETS 3D</h1>
+        <div class="subtitle">OPEN WORLD 3D ACTION ADVENTURE</div>
+        <p class="story-text">
+          Rise from a courier on the run to master of the city blocks.
+          Complete all 7 original missions from Dex, Maya, Jax, and Kael,
+          unlock the district gate, and defeat the Syndicate warlord Rex.
+        </p>
+        <div class="controls-summary">
+          <div><span class="key-badge">W A S D</span> Move</div>
+          <div><span class="key-badge">SPACE</span> Strike / Jump</div>
+          <div><span class="key-badge">E</span> Talk / Interact</div>
+          <div><span class="key-badge">MOUSE DRAG</span> Orbit Camera</div>
+          <div><span class="key-badge">M</span> Audio Mute Toggle</div>
+        </div>
+        <div class="title-buttons">
+          <button id="btn-start-game" class="btn-primary">▶ START GAME</button>
+          <button id="btn-mute-toggle" class="btn-secondary">🔊 SOUND: ON</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HUD Overlay -->
+    <div id="hud-overlay" style="display: none;">
+      <!-- Top Left: Mission Tracker -->
+      <div id="mission-tracker" class="hud-panel">
+        <div class="tracker-top">
+          <div class="tracker-header">ACTIVE MISSION</div>
+          <button id="btn-toggle-log" class="btn-micro" title="Toggle Mission Log (L)">[L] LOG</button>
+        </div>
+        <div id="tracker-title">STREET MISSIONS (0/7)</div>
+        <div id="tracker-desc">Talk to Dex, Maya, Jax, or Kael to take a job.</div>
+      </div>
+
+      <!-- Compact 7-Mission Log Modal/Panel -->
+      <div id="mission-log-panel" class="hud-panel mission-log-overlay" style="display: none;">
+        <div class="mission-log-header">
+          <div class="log-title">STREET MISSIONS PROGRESS</div>
+          <button id="btn-close-log" class="btn-icon">✕</button>
+        </div>
+        <div id="mission-log-list" class="mission-log-list">
+          <!-- Dynamically populated with all 7 missions -->
+        </div>
+      </div>
+
+      <!-- Top Center: Boss Health Bar -->
+      <div id="boss-panel" class="hud-panel" style="display: none;">
+        <div class="boss-header">REX // SYNDICATE WARLORD</div>
+        <div class="boss-hp-track">
+          <div id="boss-hp-fill" class="boss-hp-bar" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <!-- Top Right: Player Stats -->
+      <div id="stats-panel" class="hud-panel">
+        <div class="stat-row stat-hp">HEALTH: <span id="hud-hp">100/100</span></div>
+        <div class="stat-row stat-cash">CASH: <span id="hud-cash">$0</span></div>
+        <div class="stat-row stat-respect">RESPECT: <span id="hud-respect">0</span></div>
+      </div>
+
+      <!-- Center Bottom: Controls Guide -->
+      <div id="controls-panel" class="hud-panel">
+        [WASD] Move | [SPACE] Strike / Jump | [E] Interact | [L] Mission Log | [M] Mute | [DRAG] Orbit
+      </div>
+
+      <!-- Proximity Prompt & Interaction Toast -->
+      <div id="interact-prompt" class="hud-prompt" style="display: none;">
+        Press [E] to Interact
+      </div>
+      <div id="interact-toast" class="hud-toast" style="display: none;"></div>
+
+      <!-- Bottom Dialogue Box -->
+      <div id="dialogue-panel" class="dialogue-box" style="display: none;">
+        <div id="dialogue-speaker" class="dialogue-speaker-tag">Dex</div>
+        <div id="dialogue-text" class="dialogue-body">Hello streetkid.</div>
+        <div id="dialogue-choices" class="dialogue-actions">
+          <button id="btn-dialogue-ok" class="btn-primary">Continue [SPACE]</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Victory Screen Modal -->
+    <div id="victory-screen" class="game-modal" style="display: none;">
+      <div class="modal-card victory-card">
+        <h2>★ DISTRICT LIBERATED! ★</h2>
+        <div class="victory-subtitle">REX DEFEATED // YOU RULE THE STREETS</div>
+        <p>The rival crew has fled. Dex, Maya, and Jax now control the city with your syndicate backing.</p>
+        <div class="victory-stats">
+          <div class="stat-box">FINAL CASH: <span id="victory-cash">$1125</span></div>
+          <div class="stat-box">FINAL RESPECT: <span id="victory-respect">108</span></div>
+          <div class="stat-box">MISSIONS: <span id="victory-missions">7/7</span></div>
+        </div>
+        <button id="btn-restart-game" class="btn-primary">PLAY AGAIN</button>
+      </div>
+    </div>
+
+    <!-- Defeat Screen Modal -->
+    <div id="defeat-screen" class="game-modal" style="display: none;">
+      <div class="modal-card defeat-card">
+        <h2>💀 YOU WERE KNOCKED OUT!</h2>
+        <p>Rex's enforcers overpowered you in the streets. Dust yourself off and get back out there.</p>
+        <button id="btn-retry-game" class="btn-primary">RETRY MISSION</button>
+      </div>
+    </div>
+
+    <!-- WebGL Fallback Notification -->
+    <div id="webgl-error">
+      <h2>WEBGL NOT SUPPORTED</h2>
+      <p>Your browser environment does not currently support WebGL hardware acceleration.</p>
+    </div>
+
+    <!-- 3D Standalone Game Entry Point Module -->
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
